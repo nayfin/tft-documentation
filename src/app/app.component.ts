@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ng-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tft-documentation';
+  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
+  title = 'app';
+
+  linksToExamples = [
+    {
+      title: 'Home',
+      path: 'home',
+      description: `Overview of search components`,
+    }
+  ];
+
+  onLinkSelected(item: any) {
+    this.sidenav.close();
+  }
 }
