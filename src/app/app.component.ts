@@ -12,9 +12,28 @@ export class AppComponent {
 
   linksToExamples = [
     {
-      title: 'Home',
-      path: 'home',
-      description: `Overview of search components`,
+      title: 'CRISPR Forms',
+      subtitle: 'DNA driven forms',
+      description: `Overview of CRISPR Forms`,
+      links: [
+        {
+          title: 'Overview',
+          path: 'crispr-forms-demo/overview',
+        }
+      ],
+      subsections: [
+        {
+          title: 'Fields',
+          subtitle: 'Fields subtitle',
+          description: 'Available configuration fields',
+          links: [
+            {
+              title: 'Select Field',
+              path: 'crispr-forms-demo/select'
+            }
+          ]
+        }
+      ]
     }
   ];
 

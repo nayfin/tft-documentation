@@ -8,9 +8,8 @@
   <mat-sidenav-container fxFlex aria-live="main content">
 
     <mat-sidenav #sidenav>
-      mat-sidenav-content
       <tft-sidenav-navigation
-        [links]="linksToExamples"
+        [sections]="linksToExamples"
         (itemClicked)="onLinkSelected($event)">
       </tft-sidenav-navigation>
     </mat-sidenav>
