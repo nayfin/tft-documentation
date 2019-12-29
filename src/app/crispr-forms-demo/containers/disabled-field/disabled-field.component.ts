@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ng-disabled-field',
+  selector: 'doc-disabled-field',
   templateUrl: './disabled-field.component.html',
   styleUrls: ['./disabled-field.component.scss']
 })
@@ -28,6 +28,7 @@ export class DisabledFieldComponent implements OnInit {
         inputType: 'text',
         controlName: 'dynamicallyDisabled',
         label: 'Formatted Name',
+        // true by default
         hideDisabled: false,
         disabledCallback: (group) => {
           return group.get('enabler').valueChanges.pipe(map(value => value !== 'enable'))

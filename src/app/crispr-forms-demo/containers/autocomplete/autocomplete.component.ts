@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormConfig, SelectOption, ControlType } from '@tft/crispr-forms';
+import { FormConfig, ControlType, SelectOption } from '@tft/crispr-forms';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'doc-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  selector: 'doc-autocomplete',
+  templateUrl: './autocomplete.component.html',
+  styleUrls: ['./autocomplete.component.scss']
 })
-export class SelectComponent implements OnInit {
+export class AutocompleteComponent implements OnInit {
 
   arraySelectConfig: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'arraySelectDemo',
     fields: [
       {
-        controlType: ControlType.SELECT,
+        controlType: ControlType.AUTOCOMPLETE,
         label: 'This select field uses a simple array of options',
         controlName: 'selectField',
         options: [
@@ -32,7 +32,7 @@ export class SelectComponent implements OnInit {
     controlName: 'promiseSelectDemo',
     fields: [
       {
-        controlType: ControlType.SELECT,
+        controlType: ControlType.AUTOCOMPLETE,
         label: 'This select field uses a function that returns a promise to resolve options',
         controlName: 'selectFieldPromise',
         // validators: [Validators.required],
@@ -57,7 +57,7 @@ export class SelectComponent implements OnInit {
     controlName: 'observableSelectDemo',
     fields: [
       {
-        controlType: ControlType.SELECT,
+        controlType: ControlType.AUTOCOMPLETE,
         label: 'This select field uses an observable to resolve options',
         controlName: 'selectFieldObservable',
         options: of([
@@ -83,7 +83,7 @@ export class SelectComponent implements OnInit {
         ]
       },
       {
-        controlType: ControlType.SELECT,
+        controlType: ControlType.AUTOCOMPLETE,
         label: 'This select field uses an observable to resolve options',
         controlName: 'selectFieldObservable',
         reactiveOptions: true,
@@ -108,7 +108,6 @@ export class SelectComponent implements OnInit {
       }
     ]
   }
-
   constructor() { }
 
   ngOnInit() {
