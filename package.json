@@ -23,7 +23,7 @@
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
-    "@tft/crispr-forms": "^8.4.3",
+    "@tft/crispr-forms": "^8.6.0",
     "@tft/interact": "^8.0.0",
     "@tft/form-validation-handler": "^8.0.4",
     "@tft/core": "^8.0.2",
