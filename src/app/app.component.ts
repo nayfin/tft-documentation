@@ -3,7 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { appNavTree } from './app-nav-tree';
 
 @Component({
-  selector: 'app-root',
+  selector: 'doc-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
