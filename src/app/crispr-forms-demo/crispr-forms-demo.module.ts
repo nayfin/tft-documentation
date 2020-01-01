@@ -14,7 +14,7 @@ import { TextareaComponent } from './containers/textarea/textarea.component';
 import { CheckboxComponent } from './containers/checkbox/checkbox.component';
 import { SliderComponent } from './containers/slider/slider.component';
 import { DatepickerComponent } from './containers/datepicker/datepicker.component';
-// import { DividerComponent } from './containers/divider/divider.component';
+import { DividerComponent } from './containers/divider/divider.component';
 // import { HeadingComponent } from './containers/heading/heading.component';
 
 
@@ -36,7 +36,7 @@ import { DatepickerComponent } from './containers/datepicker/datepicker.componen
     CheckboxComponent,
     SliderComponent,
     DatepickerComponent,
-    // DividerComponent,
+    DividerComponent,
     // HeadingComponent
   ],
 })
