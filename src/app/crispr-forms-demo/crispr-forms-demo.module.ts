@@ -15,7 +15,7 @@ import { CheckboxComponent } from './containers/checkbox/checkbox.component';
 import { SliderComponent } from './containers/slider/slider.component';
 import { DatepickerComponent } from './containers/datepicker/datepicker.component';
 import { DividerComponent } from './containers/divider/divider.component';
-// import { HeadingComponent } from './containers/heading/heading.component';
+import { HeadingComponent } from './containers/heading/heading.component';
 
 
 @NgModule({
@@ -37,7 +37,7 @@ import { DividerComponent } from './containers/divider/divider.component';
     SliderComponent,
     DatepickerComponent,
     DividerComponent,
-    // HeadingComponent
+    HeadingComponent
   ],
 })
 export class CrisprFormsDemoModule { }
