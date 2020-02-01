@@ -36,7 +36,7 @@ export class ComputedFieldComponent implements OnInit {
             return values.reduce((acc, curr) => +acc * +curr, 1)
           }
         },
-        computeField: computeValueFromFields
+        // computeField: computeValueFromFields
       }
     ]
   }
@@ -69,7 +69,7 @@ export class ComputedFieldComponent implements OnInit {
             return `${values[0] || ''} ${values[1] || ''}`.trim();
           }
         },
-        computeField: computeValueFromFields
+        // computeField: computeValueFromFields
       }
     ]
   }
