@@ -110,14 +110,30 @@ export const appNavTree: SidenavSection[] = [
           {title: 'Shuffleboard', path: 'interact-demo/shuffleboard'},
           {title: 'Landscaping', path: 'interact-demo/landscaping'}
         ]
-      },
-      // {
-      //   title: 'APIs',
-      //   links: [
-      //     {title: 'Drag', path: 'interact-demo/shuffleboard'},
-      //     {title: 'Drop', path: 'interact-demo/landscaping'}
-      //   ]
-      // }
+      }
+    ]
+  },
+  {
+    title: 'Material Instantsearch',
+    subtitle: 'Material Design Algolia Instantsearch components',
+    description: ``,
+    links: [
+      {
+        title: 'Overview',
+        path: 'mat-instantsearch-demo/overview',
+      }
+    ],
+    subsections: [
+      {
+        title: 'Search Components',
+        links: [
+          {title: 'Search Box', path: 'mat-instantsearch-demo/components/search-box'},
+          {title: 'Autocomplete', path: 'mat-instantsearch-demo/components/autocomplete'},
+          {title: 'Select Filter', path: 'mat-instantsearch-demo/components/filter-select'},
+          {title: 'Chiplist Filter', path: 'mat-instantsearch-demo/components/filter-chiplist'},
+          {title: 'Pagination', path: 'mat-instantsearch-demo/components/pagination'},
+        ]
+      }
     ]
   }
 ];
