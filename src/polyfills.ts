@@ -57,6 +57,13 @@
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
+/**
+ * angular-instantsearch has a bug that requires the following polyfill
+ *
+ */
+(window as any).process = {
+  env: { DEBUG: undefined },
+};
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
