@@ -94,8 +94,8 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left'
         },
         appearance: 'outline',
-        color: 'accent'
-        // validators: [Validators.required],
+        color: 'accent',
+        validators: [Validators.required],
       },
       {
         controlType: ControlType.SELECT,
@@ -103,7 +103,6 @@ export class OverviewComponent implements OnInit {
         controlName: 'selectField',
         placeholder: 'I am a placeholder in a select field',
         classes: [],
-        // validators: [Validators.required],
         options: [
           {label: 'option a', value: 'a'},
           {label: 'option b', value: 'b'},
@@ -121,7 +120,6 @@ export class OverviewComponent implements OnInit {
         controlName: 'selectFieldObservable',
         placeholder: 'I am a placeholder in a select field',
         classes: [],
-        // validators: [Validators.required],
         options: of([
           {label: 'good', value: 'a'},
           {label: 'evil', value: 'b'},
@@ -133,7 +131,6 @@ export class OverviewComponent implements OnInit {
         controlName: 'selectFieldPromise',
         placeholder: 'I am a placeholder in a select field',
         classes: [],
-        // validators: [Validators.required],
         options: (): Promise<SelectOption[]> => {
           return new Promise( (resolve, reject) => {
             // make an http request here
@@ -163,7 +160,7 @@ export class OverviewComponent implements OnInit {
           iconName: 'delete'
         },
         // validators: [Validators.required],
-        options: of([
+        options: () => of([
           {label: 'good', value: 'a'},
           {label: 'evil', value: 'b'},
         ])
@@ -222,7 +219,7 @@ export class OverviewComponent implements OnInit {
       },
       {
         controlType: ControlType.BUTTON,
-        disabledOnInvalidForm: true,
+        disabledOnInvalidForm: false,
         controlName: 'button',
         buttonType: 'flat',
         label: 'I AM A SUBMIT BUTTON',
