@@ -18,7 +18,7 @@ export class TargetComponent implements OnInit {
 
   dropzoneConfig: DropzoneOptions = {
     overlap: 0.5
-  }
+  };
   constructor() { }
 
   ngOnInit() {
