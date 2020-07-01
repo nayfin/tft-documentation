@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormConfig, ControlType, SelectOption } from '@tft/crispr-forms';
 import { Validators, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Moment } from 'moment';
 
 @Component({
@@ -23,7 +23,26 @@ export class OverviewComponent implements OnInit {
       required: () => `I am a custom error message on a required field`,
     },
     fields: [
-      // a basic input field in the form with the following configuration
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'subGroup',
+        fields: [
+          // configuration will create an input field in the form with the following configuration
+          {
+            controlType: ControlType.INPUT,
+            inputType: 'text',
+            controlName: 'subField',
+            placeholder: 'First Name',
+            initialValue: 'Lady'
+          },
+          {
+            controlType: ControlType.INPUT,
+            controlName: 'secondSubField',
+            placeholder: 'Last Name',
+            initialValue: 'gaga'
+          },
+        ]
+      },
       {
         controlType: ControlType.GROUP_LIST,
         heading: {
@@ -31,16 +50,32 @@ export class OverviewComponent implements OnInit {
         },
         controlName: 'groupList',
         itemLabelBuilder: ( index: number ) => `Step ${index + 1}`,
+        initialValue: [
+          {
+            subField: 'Tom',
+            secondSubField: 'Waits'
+          },
+          {
+            subField: 'loch',
+            secondSubField: 'ness'
+          }
+        ],
         itemConfig: {
+          heading: { label: 'Sub Group'},
           controlType: ControlType.GROUP,
-          controlName: 'group',
+          controlName: 'subGroup',
           fields: [
-            // configuration will create an input field in the form with the following configuration
             {
+              // a basic input field in the form with the following configuration
               controlType: ControlType.INPUT,
               inputType: 'text',
-              controlName: 'preparationStep',
-              placeholder: 'Add a preparation step',
+              controlName: 'subField',
+              placeholder: 'First Name',
+            },
+            {
+              controlType: ControlType.INPUT,
+              controlName: 'secondSubField',
+              placeholder: 'Last Name',
             },
           ]
         }
@@ -52,6 +87,7 @@ export class OverviewComponent implements OnInit {
         },
         controlName: 'textInput',
         controlType: ControlType.INPUT,
+        initialValue: 'initial text input value',
         label: 'I am a label on a text input',
         placeholder: 'I am a placeholder in a text input',
         info: {
@@ -59,7 +95,6 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left',
           iconName: 'delete'
         },
-        buttonType: 'flat',
         // you can pass custom validators in here too.
         validators: [Validators.required, Validators.minLength(5)],
       },
@@ -74,6 +109,7 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left'
         },
         appearance: 'outline',
+        initialValue: 'some disabled text',
         // hideDisabled: true,
         disabledCallback: ( form, _config) => {
           // have access to the form here so we can hook into the valueChanges on the text input above
@@ -132,6 +168,7 @@ export class OverviewComponent implements OnInit {
         controlName: 'selectFieldPromise',
         placeholder: 'I am a placeholder in a select field',
         classes: [],
+        initialValue: 'blue',
         options: (): Promise<SelectOption[]> => {
           return new Promise( (resolve, reject) => {
             // make an http request here
@@ -206,10 +243,10 @@ export class OverviewComponent implements OnInit {
       {
         controlType: ControlType.SLIDER,
         controlName: 'slider',
+        initialValue: 9,
         label: 'I am a label on a slider',
         placeholder: 'I am a placeholder on a slider',
         color: 'primary',
-        labelPosition: 'after',
         info: {
           content: 'I am a tooltip on a slider'
         },
@@ -221,7 +258,6 @@ export class OverviewComponent implements OnInit {
       {
         controlType: ControlType.BUTTON,
         disabledOnInvalidForm: false,
-        controlName: 'button',
         buttonType: 'flat',
         label: 'I AM A SUBMIT BUTTON',
         color: 'primary',
