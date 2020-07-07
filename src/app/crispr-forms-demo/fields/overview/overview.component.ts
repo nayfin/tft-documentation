@@ -13,8 +13,34 @@ import { Moment } from 'moment';
 export class OverviewComponent implements OnInit {
 
   value = {
-    textareaInput: 'I am an initial value for this field'
-  }
+    subGroup: {
+      subField: 'Initial Value in sub group',
+      secondSubField: 'Second Initial Value in sub group'
+    },
+    groupList: [
+      {
+        subField: 'david',
+      },
+      {
+        secondSubField: 'bowie'
+      },
+    ],
+    textInput: 'I am an initial value for this field',
+    disabler: true,
+    disabledText: 'Some initial value on disabled field',
+    selectField: 'b',
+    selectFieldObservable: 'b',
+    selectFieldPromise: 'blue',
+    autocompleteObservable: { value: 'b', label: 'good'},
+    autocompleteChiplistObservable: [
+      { value: 'a', label: 'Alpha'},
+      { value: 'b', label: 'Beta'},
+      { value: 'o', label: 'Omega'},
+    ],
+    datepickerField : new Date('4/18/2019'),
+    slider: 66
+  };
+
   config: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
@@ -33,13 +59,11 @@ export class OverviewComponent implements OnInit {
             inputType: 'text',
             controlName: 'subField',
             placeholder: 'First Name',
-            initialValue: 'Lady'
           },
           {
             controlType: ControlType.INPUT,
             controlName: 'secondSubField',
             placeholder: 'Last Name',
-            initialValue: 'gaga'
           },
         ]
       },
@@ -50,16 +74,6 @@ export class OverviewComponent implements OnInit {
         },
         controlName: 'groupList',
         itemLabelBuilder: ( index: number ) => `Step ${index + 1}`,
-        initialValue: [
-          {
-            subField: 'Tom',
-            secondSubField: 'Waits'
-          },
-          {
-            subField: 'loch',
-            secondSubField: 'ness'
-          }
-        ],
         itemConfig: {
           heading: { label: 'Sub Group'},
           controlType: ControlType.GROUP,
@@ -87,7 +101,6 @@ export class OverviewComponent implements OnInit {
         },
         controlName: 'textInput',
         controlType: ControlType.INPUT,
-        initialValue: 'initial text input value',
         label: 'I am a label on a text input',
         placeholder: 'I am a placeholder in a text input',
         info: {
@@ -97,6 +110,17 @@ export class OverviewComponent implements OnInit {
         },
         // you can pass custom validators in here too.
         validators: [Validators.required, Validators.minLength(5)],
+      },
+      {
+        controlType: ControlType.CHECKBOX,
+        controlName: 'disabler',
+        label: 'Check to disable the below input',
+        color: 'primary',
+        labelPosition: 'after',
+        inline: true,
+        info: {
+          content: 'I am a tooltip on a checkbox'
+        }
       },
       {
         controlType: ControlType.INPUT,
@@ -109,14 +133,10 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left'
         },
         appearance: 'outline',
-        initialValue: 'some disabled text',
-        // hideDisabled: true,
         disabledCallback: ( form, _config) => {
           // have access to the form here so we can hook into the valueChanges on the text input above
           // to dynamically enable/disable this field
-          return form.get('textInput').valueChanges.pipe(
-            map( (inputValue: string) => (inputValue || '').trim().length === 0),
-          )
+          return form.get('disabler').valueChanges
         }
       },
       {
@@ -168,7 +188,6 @@ export class OverviewComponent implements OnInit {
         controlName: 'selectFieldPromise',
         placeholder: 'I am a placeholder in a select field',
         classes: [],
-        initialValue: 'blue',
         options: (): Promise<SelectOption[]> => {
           return new Promise( (resolve, reject) => {
             // make an http request here
@@ -190,7 +209,7 @@ export class OverviewComponent implements OnInit {
       {
         controlType: ControlType.AUTOCOMPLETE,
         label: 'This autocomplete field uses an observable to resolve options',
-        controlName: 'autocompleteFieldObservable',
+        controlName: 'autocompleteObservable',
         placeholder: 'I am a placeholder in a autocomplete field',
         info: {
           content: 'I am an info tooltip on an autocomplete field',
@@ -202,6 +221,26 @@ export class OverviewComponent implements OnInit {
           {label: 'good', value: 'a'},
           {label: 'evil', value: 'b'},
         ])
+      },
+      {
+        controlType: ControlType.AUTOCOMPLETE_CHIPLIST,
+        label: 'This autocomplete chiplist field uses an observable to resolve options',
+        controlName: 'autocompleteChiplistObservable',
+        placeholder: 'I am a placeholder in a autocomplete field',
+        info: {
+          content: 'I am an info tooltip on an autocomplete field',
+          tooltipPosition: 'left',
+          iconName: 'delete'
+        },
+        // validators: [Validators.required],
+        typeDebounceTime: 0,
+        options: (_group, searchTerm) => {
+          console.log({searchTerm, _group})
+          return of([
+            {label: 'good', value: 'a'},
+            {label: 'evil', value: 'b'},
+          ]).pipe(map(options => options.filter(option => option.label.toLowerCase().includes(searchTerm) )))
+        }
       },
       {
         controlType: ControlType.HEADING,
@@ -227,23 +266,11 @@ export class OverviewComponent implements OnInit {
         label: 'I am a label for a datepicker field',
       },
       {
-        controlType: ControlType.CHECKBOX,
-        controlName: 'horizontalCheckbox',
-        label: 'I am a checkbox?',
-        color: 'primary',
-        labelPosition: 'after',
-        inline: true,
-        info: {
-          content: 'I am a tooltip on a checkbox'
-        }
-      },
-      {
         controlType: ControlType.DIVIDER
       },
       {
         controlType: ControlType.SLIDER,
         controlName: 'slider',
-        initialValue: 9,
         label: 'I am a label on a slider',
         placeholder: 'I am a placeholder on a slider',
         color: 'primary',

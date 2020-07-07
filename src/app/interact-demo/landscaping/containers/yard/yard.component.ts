@@ -62,7 +62,5 @@ export class YardComponent {
     dragRef.setPosition(0, 0);
   }
 
-  log(type: string, event: any) {
-    console.log(event);
-  }
+
 }
