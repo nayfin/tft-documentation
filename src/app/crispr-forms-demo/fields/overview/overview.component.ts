@@ -14,8 +14,7 @@ export class OverviewComponent implements OnInit {
 
   value = {
     subGroup: {
-      // subField: 'Initial Value in sub group',
-      secondSubField: 'Second Initial Value in sub group'
+      subField: 'Initial Value in sub group',
     },
     groupList: [
       {
@@ -29,7 +28,7 @@ export class OverviewComponent implements OnInit {
     disabler: true,
     disabledText: 'Some initial value on disabled field',
     selectField: 'b',
-    selectFieldObservable: 'b',
+    // selectFieldObservable: 'b',
     selectFieldPromise: 'blue',
     autocompleteObservable: { value: 'b', label: 'good'},
     autocompleteChiplistObservable: [
@@ -42,16 +41,17 @@ export class OverviewComponent implements OnInit {
   };
 
   config: FormConfig = {
-    controlType: ControlType.GROUP,
-    controlName: 'myForm',
     autocomplete: 'off',
     errorDictionary: {
       required: () => `I am a custom error message on a required field`,
     },
     fields: [
       {
-        controlType: ControlType.GROUP,
+        controlType: ControlType.SUB_GROUP,
         controlName: 'subGroup',
+        heading: {
+          label: 'SubGroup Label'
+        },
         fields: [
           // configuration will create an input field in the form with the following configuration
           {
@@ -68,6 +68,22 @@ export class OverviewComponent implements OnInit {
         ]
       },
       {
+        controlType: ControlType.RADIO,
+        controlName: 'radioField',
+        options: () => {
+          return [
+            {
+              label: 'Option A',
+              value: 'a'
+            },
+            {
+              label: 'Option B',
+              value: 'b'
+            }
+          ]
+        }
+      },
+      {
         controlType: ControlType.GROUP_LIST,
         heading: {
           label: 'Group List'
@@ -76,7 +92,7 @@ export class OverviewComponent implements OnInit {
         itemLabelBuilder: ( index: number ) => `Step ${index + 1}`,
         itemConfig: {
           heading: { label: 'Sub Group'},
-          controlType: ControlType.GROUP,
+          controlType: ControlType.SUB_GROUP,
           controlName: 'subGroup',
           fields: [
             {
@@ -158,7 +174,6 @@ export class OverviewComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'I am a label to a select field with an array of options',
         controlName: 'selectField',
-        placeholder: 'I am a placeholder in a select field',
         classes: [],
         options: [
           {label: 'option a', value: 'a'},
@@ -175,7 +190,6 @@ export class OverviewComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'This select field uses an observable to resolve options',
         controlName: 'selectFieldObservable',
-        placeholder: 'I am a placeholder in a select field',
         classes: [],
         options: of([
           {label: 'good', value: 'a'},
@@ -186,7 +200,6 @@ export class OverviewComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'This select field uses a promise to resolve options',
         controlName: 'selectFieldPromise',
-        placeholder: 'I am a placeholder in a select field',
         classes: [],
         options: (): Promise<SelectOption[]> => {
           return new Promise( (resolve, reject) => {
@@ -216,6 +229,7 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left',
           iconName: 'delete'
         },
+        fieldSuffix: 'meters',
         // validators: [Validators.required],
         options: () => of([
           {label: 'good', value: 'a'},
@@ -232,6 +246,7 @@ export class OverviewComponent implements OnInit {
           tooltipPosition: 'left',
           iconName: 'delete'
         },
+        fieldSuffix: '$',
         // validators: [Validators.required],
         typeDebounceTime: 0,
         options: (_group, searchTerm) => {
@@ -272,7 +287,6 @@ export class OverviewComponent implements OnInit {
         controlType: ControlType.SLIDER,
         controlName: 'slider',
         label: 'I am a label on a slider',
-        placeholder: 'I am a placeholder on a slider',
         color: 'primary',
         info: {
           content: 'I am a tooltip on a slider'

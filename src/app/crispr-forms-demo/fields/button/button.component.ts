@@ -9,8 +9,6 @@ import { Validators } from '@angular/forms';
 })
 export class ButtonComponent implements OnInit {
   formConfig: FormConfig = {
-    controlType: ControlType.GROUP,
-    controlName: 'form',
     classes: ['form'],
     autocomplete: 'off',
     fields: [
@@ -26,15 +24,15 @@ export class ButtonComponent implements OnInit {
       },
       {
         controlType: ControlType.BUTTON,
-        label: 'FLAT BUTTON',
-        buttonType: 'flat'
-      },
-      {
-        controlType: ControlType.BUTTON,
         label: 'RAISED BUTTON',
         buttonType: 'raised',
         color: 'warn',
         disabledOnInvalidForm: true
+      },
+      {
+        controlType: ControlType.BUTTON,
+        label: 'FLAT BUTTON',
+        buttonType: 'flat'
       },
       {
         controlType: ControlType.BUTTON,
