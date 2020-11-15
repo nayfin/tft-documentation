@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: ''    , redirectTo: 'crispr-forms-demo', pathMatch: 'full'},
+  { path: '', redirectTo: 'crispr-forms-demo', pathMatch: 'full'},
   {
     path: 'crispr-forms-demo',
     loadChildren: () => import('./crispr-forms-demo/crispr-forms-demo.module')
@@ -21,10 +21,12 @@ const routes: Routes = [
   // },
   { path: '**'  , redirectTo: 'crispr-forms-demo' },
 ];
-
+const routerConfig = {
+  enableTracing: false
+}
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, routerConfig)
   ],
   exports: [
     RouterModule

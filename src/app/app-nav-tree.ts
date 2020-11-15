@@ -124,6 +124,12 @@ export const appNavTree: SidenavSection[] = [
           {title: 'Shuffleboard', path: 'interact-demo/shuffleboard'},
           {title: 'Landscaping', path: 'interact-demo/landscaping'}
         ]
+      },
+      {
+        title: 'Features',
+        links: [
+          {title: 'Placeholder Template', path: 'interact-demo/features'}
+        ]
       }
     ]
   },

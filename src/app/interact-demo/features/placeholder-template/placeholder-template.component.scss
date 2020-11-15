@@ -1,0 +1,23 @@
+h2 {
+  position: absolute;
+}
+.drag-canvas {
+  width: 500px;
+  height: 500px;
+  background: hotpink;
+}
+.draggable, .trigger {
+  width: 60px;
+  height: 60px;
+  .handle {
+    background: white;
+    width: 30px;
+    height: 30px;
+  }
+}
+.trigger {
+  background: aqua;
+}
+.draggable {
+  background: burlywood;
+}

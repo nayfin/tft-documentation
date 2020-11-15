@@ -10,6 +10,11 @@ const routes: Routes = [
       .then(m => m.ShuffleboardModule)
   },
   {
+    path: 'features',
+    loadChildren: () => import('./features/features.module')
+      .then(m => m.FeaturesModule)
+  },
+  {
     path: 'landscaping',
     loadChildren: () => import('./landscaping/landscaping.module')
       .then(m => m.LandscapingModule)

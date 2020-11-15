@@ -2,6 +2,16 @@ import { Component, Renderer2, ViewChild } from '@angular/core';
 import { TftDropEvent, DropzoneDirective } from '@tft/interact';
 import { DraggableOptions } from '@interactjs/types/index';
 
+interface InventoryItem {
+  name: string;
+  count: number;
+}
+
+interface DroppedItem {
+  name: string;
+  x: number;
+  y: number;
+}
 @Component({
   selector: 'tft-yard',
   templateUrl: './yard.component.html',
@@ -11,9 +21,10 @@ export class YardComponent {
 
   @ViewChild(DropzoneDirective) dropzone2: DropzoneDirective;
 
-  dragConfig: DraggableOptions;
+  dragConfig: DraggableOptions = {allowFrom: '.handle'};
   dragConfigB: DraggableOptions;
-  dragItems = [
+
+  dragInventory: InventoryItem[] = [
     {
       name: 'green',
       count: Infinity
@@ -26,35 +37,51 @@ export class YardComponent {
       name: 'yellow',
       count: 5
     },
+    {
+      name: 'blue',
+      count: 3
+    },
+    {
+      name: 'orange',
+      count: 5
+    },
+    {
+      name: 'pink',
+      count: 3
+    },
+    {
+      name: 'purple',
+      count: 5
+    },
   ];
 
-  droppedItems = [];
+  droppedItems: DroppedItem[] = [];
 
   constructor(
     private renderer: Renderer2
   ) { }
 
-  handleDrop(event: TftDropEvent, initialIndex) {
-    const dragData = this.dragItems[initialIndex];
-    const {dragRef, dropTarget} = event;
 
-    if (dropTarget && dropTarget.dropzoneId === 'yard') {
+  handleDrop(event: TftDropEvent) {
+    const {dragRef, dropTarget} = event;
+    const dragData = dragRef.dragData;
+    if (dropTarget?.dropzoneId === 'yard' && dropTarget !== dragRef.dropzone_dir) {
       const item = {
         x: event.positionInDropTarget.x,
         y: event.positionInDropTarget.y,
-        name: event.dragRef.dragData.name
+        name: dragRef.dragData.name
       }
       dragData.count--;
       this.droppedItems.push(item);
     } else {
       this.renderer.setStyle(
-        event.interactEvent.target,
+        dragRef.el.nativeElement,
         'transition',
         'transform 500ms ease-in-out'
       )
       setTimeout(() => {
         this.renderer.removeStyle(
-          event.interactEvent.target,
+          dragRef.el.nativeElement,
           'transition'
         )
       }, 500)

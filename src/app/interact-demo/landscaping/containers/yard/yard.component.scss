@@ -1,6 +1,16 @@
-.drag-origin-container {
-  width: 1000px;
+:host {
   display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+}
+.drag-origin-container {
+  display: flex;
+  flex-direction: row;
+  // position: fixed;
+  overflow-x: auto;
+  width: 100%;
+  bottom: 0;
+  background: wheat;
   .drag-origin {
     display: flex;
     flex-direction: column;
@@ -14,6 +24,7 @@
       height: 120px;
       background: rgba(0, 255, 21, 0.555);
       display: flex;
+      position: relative;
       justify-content: center;
       align-items: center;
     }
@@ -24,12 +35,20 @@
   width: 100px;
   height: 100px;
   background: blue;
+  h3 {
+    position: absolute;
+  }
+  // color: white;
 }
 .yard {
+  color: white;
   display: flex;
   width: 100%;
-  height: 8000px;
+  height: 1000px;
   background: rosybrown;
+  h2 {
+    position: absolute;
+  }
 }
 .interact-item, .dropzone-item {
   width: 80px;
@@ -51,4 +70,5 @@
 }
 .dropzone-item {
   background: green;
+  color: black;
 }
