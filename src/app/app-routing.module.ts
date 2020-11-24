@@ -9,11 +9,11 @@ const routes: Routes = [
     loadChildren: () => import('./crispr-forms-demo/crispr-forms-demo.module')
       .then(m => m.CrisprFormsDemoModule)
   },
-  // {
-  //   path: 'interact-demo',
-  //   loadChildren: () => import('./interact-demo/interact-demo.module')
-  //     .then(m => m.InteractDemoModule)
-  // },
+  {
+    path: 'interact-demo',
+    loadChildren: () => import('./interact-demo/interact-demo.module')
+      .then(m => m.InteractDemoModule)
+  },
   // {
   //   path: 'mat-instantsearch-demo',
   //   loadChildren: () => import('./mat-instantsearch-demo/mat-instantsearch-demo.module')
