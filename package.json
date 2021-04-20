@@ -25,16 +25,16 @@
     "@angular/router": "^11.0.0",
     "@angular/fire": "^6.1.0",
     "firebase": "7.14.3",
+    "interactjs": "1.9.19",
+    "rxjs": "~6.6.3",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.10.2",
+    "moment": "^2.24.0",
     "@tft/core": "latest",
     "@tft/crispr-forms": "latest",
     "@tft/form-validation-handler": "latest",
     "@tft/interact": "latest",
-    "@tft/ui-imports": "latest",
-    "interactjs": "1.9.19",
-    "moment": "^2.24.0",
-    "rxjs": "~6.6.3",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "@tft/ui-imports": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.0",
