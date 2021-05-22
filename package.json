@@ -31,7 +31,7 @@
     "zone.js": "~0.11.4",
     "moment": "^2.24.0",
     "@tft/core": "latest",
-    "@tft/crispr-forms": "next",
+    "@tft/crispr-forms": "latest",
     "@tft/form-validation-handler": "latest",
     "@tft/interact": "latest",
     "@tft/ui-imports": "latest"
