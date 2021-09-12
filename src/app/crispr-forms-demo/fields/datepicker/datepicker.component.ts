@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+// import { MatCalendar } from '@angular/material/datepicker';
+import { Component, /* Inject */ } from '@angular/core';
 import { FormConfig, ControlType } from '@tft/crispr-forms';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
@@ -14,16 +15,22 @@ export class DatepickerComponent {
     fields: [
       {
         heading: {
-          label: 'Datepicker'
+          label: 'Datepicker With Custom Footer'
         },
         controlType: ControlType.DATEPICKER,
         startAt: new Date('April 20 2019'),
         label: 'Datepicker Field',
         controlName: 'datepicker',
+        calendarFooterComponent: CustomDatepickerFooterComponent
       },
       {
         controlType: ControlType.DIVIDER,
         vertical: true
+      },
+      {
+        controlType: ControlType.DATEPICKER,
+        controlName: 'startAtController',
+        label: 'Controls startAt date of touch optimized field'
       },
       {
         controlType: ControlType.DATEPICKER,
@@ -33,8 +40,9 @@ export class DatepickerComponent {
             content: 'This larger calender is great for mobile users'
           },
         },
+        startAt: (group) => group.get('startAtController').valueChanges,
         touchUi: true,
-        label: 'Datepicker Field',
+        label: 'Touch Optimized Datepicker Field',
         controlName: 'touchDatepicker',
       },
       {
@@ -95,4 +103,22 @@ export class DatepickerComponent {
       }
     ]
   };
+}
+
+@Component({
+  selector: 'doc-datepicker-custom-footer',
+  template: `
+    <button mat-raised-button  (click)="focus()">FOCUS</button>
+  `
+})
+export class CustomDatepickerFooterComponent<D> {
+  // TODO: this isn't working for some reason
+  constructor(
+    // @Inject({ MatCalendar}) public _calendar: MatCalendar<D>
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  ) { }
+
+  focus() {
+    // this._calendar.focusActiveCell()
+  }
 }
