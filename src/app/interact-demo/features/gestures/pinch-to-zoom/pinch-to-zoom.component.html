@@ -1,0 +1,15 @@
+<div class="page">
+  <section class="drag-canvas" tftDropzone>
+    <h2>Pinch to zoom</h2>
+    <div class="gesturable"
+      [style.transform]="transform"
+      tftGesturable
+      (gestureMove)="onGestureMove($event)"
+      (gestureStart)="onGestureStart($event)"
+      (gestureEnd)="onGestureEnd($event)">
+      Gesturable
+    </div>
+  </section>
+
+
+</div>
