@@ -1,26 +1,28 @@
-import { Component } from '@angular/core';
-import { FormConfig, ControlType, SelectOption } from '@tft/crispr-forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormConfig, ControlType, SelectOption, CrisprFormComponent } from '@tft/crispr-forms';
 import { Validators, FormGroup } from '@angular/forms';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Moment } from 'moment';
+import { BehaviorSubject, of } from 'rxjs';
+import { map, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'doc-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit{
 
-  value = {
+  valueSubject = new BehaviorSubject({
+    inputField: 'Hello',
     subGroup: {
       subField: 'Initial Value in sub group',
     },
     groupList: [
       {
+        autocompleteChiplistObservable: ['a', 'b' ],
         subField: 'david',
       },
       {
+        autocompleteChiplistObservable: [ 'o' ],
         secondSubField: 'bowie'
       },
     ],
@@ -30,20 +32,31 @@ export class OverviewComponent {
     selectField: 'b',
     // selectFieldObservable: 'b',
     selectFieldPromise: 'blue',
-    autocompleteObservable: { value: 'b', label: 'good'},
-    autocompleteChiplistObservable: [
-      { value: 'a', label: 'Alpha'},
-      { value: 'b', label: 'Beta'},
-      { value: 'o', label: 'Omega'},
-    ],
+    autocompleteObservable: 'b',
+    autocompleteChiplistObservable: ['a', 'b', 'o' ],
     datepickerField : new Date('4/18/2019'),
     slider: 66
-  };
+  });
+
+  value$ = this.valueSubject.pipe(
+    map(unmappedValue => {
+      // Since we are feeding the submitted values back into the form value we need to map the labels back onto the autocomplete fields
+      return {
+        ...unmappedValue,
+        autocompleteObservable: { value: unmappedValue.autocompleteObservable, label: unmappedValue.autocompleteObservable},
+        autocompleteChiplistObservable: unmappedValue.autocompleteChiplistObservable.map(el => ({label: el, value: el })),
+        groupList:unmappedValue.groupList.map(el => ({...el, autocompleteChiplistObservable: el.autocompleteChiplistObservable.map(chip => ({label: chip, value: chip }))}))
+      }
+    }),
+    delay(101)
+  );
 
   config: FormConfig = {
     autoComplete: 'off',
     errorDictionary: {
-      required: () => `I am a custom error message on a required field`,
+      required: () => {
+        return `I am a custom error message on a required field`
+      },
     },
     validators: [Validators.required],
     fields: [
@@ -51,8 +64,11 @@ export class OverviewComponent {
         controlType: ControlType.INPUT,
         inputType: 'text',
         controlName: 'inputField',
-        placeholder: 'First Name',
-        validators: [Validators.required]
+        label: 'First Name',
+        placeholder: 'Bill Murray',
+        validators: [Validators.required],
+        appearance: 'outline',
+        hint: 'Type in here this is a really really really really really really really really really really really long hint'
       },
       {
         controlType: ControlType.RADIO,
@@ -76,6 +92,7 @@ export class OverviewComponent {
           label: 'Group List'
         },
         controlName: 'groupList',
+        minListLength: 0,
         itemLabelBuilder: ( index: number ) => `Step ${index + 1}`,
         itemConfig: {
           heading: { label: 'Sub Group'},
@@ -83,16 +100,46 @@ export class OverviewComponent {
           controlName: 'subGroup',
           fields: [
             {
+              controlType: ControlType.AUTOCOMPLETE_CHIPLIST,
+              label: 'This autocomplete chiplist field uses an observable to resolve options',
+              controlName: 'autocompleteChiplistObservable',
+              placeholder: 'I am a placeholder in a autocomplete field',
+              info: {
+                content: 'I am an info tooltip on an autocomplete field',
+                tooltipPosition: 'left',
+                iconName: 'delete'
+              },
+              fieldSuffix: '$',
+              // validators: [Validators.required],
+              typeDebounceTime: 0,
+              validators: [Validators.required],
+              options: (_group, searchTerm) => {
+                console.log({searchTerm, _group})
+                return of([
+                  {label: 'good', value: 'good'},
+                  {label: 'evil', value: 'evil'},
+                ]).pipe(map(options => options.filter(option => option.label.toLowerCase().includes(searchTerm) )))
+              },
+              hint: 'Autocomplete Chiplist hint'
+            },
+            {
               // a basic input field in the form with the following configuration
               controlType: ControlType.INPUT,
+              appearance: 'fill',
               inputType: 'text',
               controlName: 'subField',
-              placeholder: 'First Name',
+              label: 'First Name',
+              placeholder: 'BB',
+              validators: [Validators.required],
+
             },
             {
               controlType: ControlType.INPUT,
               controlName: 'secondSubField',
-              placeholder: 'Last Name',
+              appearance: 'legacy',
+              label: 'Last Name',
+              placeholder: 'King',
+              validators: [Validators.required],
             },
           ]
         }
@@ -126,13 +173,15 @@ export class OverviewComponent {
             controlType: ControlType.INPUT,
             inputType: 'text',
             controlName: 'subField',
-            placeholder: 'First Name',
+            label: 'First Name',
+            placeholder: 'Wyatt',
             validators: [Validators.required]
           },
           {
             controlType: ControlType.INPUT,
             controlName: 'secondSubField',
-            placeholder: 'Last Name',
+            label: 'Last Name',
+            placeholder: 'Earp'
           },
         ]
       },
@@ -178,6 +227,7 @@ export class OverviewComponent {
         appearance: 'outline',
         color: 'accent',
         validators: [Validators.required],
+        hint: 'Textarea hint'
       },
       {
         controlType: ControlType.SELECT,
@@ -185,7 +235,7 @@ export class OverviewComponent {
         controlName: 'selectField',
         classes: [],
         options: [
-          {label: 'option a', value: 'a'},
+          {label: 'option a', value: 'a', info: {content: 'Some info about the option'}, imageUrl: 'https://firebasestorage.googleapis.com/v0/b/abigharvest-dev.appspot.com/o/icons%2Fapp%2Fa-big-harvest.svg?alt=media&token=3d1956e4-0447-4dc1-84d1-15163749ed89'},
           {label: 'option b', value: 'b'},
           {label: 'option c', value: 'c'},
         ],
@@ -193,7 +243,9 @@ export class OverviewComponent {
           content: 'I am an info tooltip on a select field',
           tooltipPosition: 'above',
           iconName: 'delete'
-        }
+        },
+        hint: 'Select hint'
+
       },
       {
         controlType: ControlType.SELECT,
@@ -201,7 +253,7 @@ export class OverviewComponent {
         controlName: 'selectFieldObservable',
         classes: [],
         options: of([
-          {label: 'good', value: 'a'},
+          {label: 'good', value: 'a', info: {content: 'some info about the option'}},
           {label: 'evil', value: 'b'},
         ])
       },
@@ -226,7 +278,8 @@ export class OverviewComponent {
           content: 'This select field gets its options from a function that returns a promise of select options',
         },
         appearance: 'outline',
-        color: 'accent'
+        color: 'accent',
+        hint: 'Select Field hint'
       },
       {
         controlType: ControlType.AUTOCOMPLETE,
@@ -239,11 +292,12 @@ export class OverviewComponent {
           iconName: 'delete'
         },
         fieldSuffix: 'meters',
-        // validators: [Validators.required],
         options: () => of([
           {label: 'good', value: 'a'},
           {label: 'evil', value: 'b'},
-        ])
+        ]),
+        validators: [Validators.required],
+        hint: 'Autocomplete hint'
       },
       {
         controlType: ControlType.AUTOCOMPLETE_CHIPLIST,
@@ -258,13 +312,15 @@ export class OverviewComponent {
         fieldSuffix: '$',
         // validators: [Validators.required],
         typeDebounceTime: 0,
+        validators: [Validators.required],
         options: (_group, searchTerm) => {
           console.log({searchTerm, _group})
           return of([
             {label: 'good', value: 'good'},
             {label: 'evil', value: 'evil'},
           ]).pipe(map(options => options.filter(option => option.label.toLowerCase().includes(searchTerm) )))
-        }
+        },
+        hint: 'Autocomplete Chiplist hint'
       },
       {
         controlType: ControlType.HEADING,
@@ -281,15 +337,16 @@ export class OverviewComponent {
         touchUi: true,
         startView: 'month',
         startAt: new Date('Apr 12, 2019'),
-        datepickerFilter: (date: Moment) => {
+        datepickerFilter: (date: Date) => {
           if (date) {
-            const day = date.day();
+            const day = date.getDay(); // date.day();
             return [2,4,6].includes(day);
           }
         },
         min: new Date('Apr 5 2019'),
         max: new Date('Apr 23 2019'),
         label: 'I am a label for a datepicker field',
+        hint: 'A datepicker hint'
       },
       {
         controlType: ControlType.DIVIDER
@@ -320,16 +377,26 @@ export class OverviewComponent {
     ]
   }
 
+  @ViewChild('crisprForm') crisprForm: CrisprFormComponent;
+
+  ngOnInit(): void {
+    const currentFormValue = this.valueSubject.getValue()
+    // this.valueSubject.next(currentFormValue);
+  }
+
   handleSubmit(form: FormGroup) {
     const rawValue = form.getRawValue();
-    console.log({rawValue, form});
+    this.valueSubject.next(rawValue);
   }
 
   handleValueChanges(value: any) {
-    console.log({valueChanges: value})
+    // console.log({valueChanges: value})
   }
   handleStatusChanges(status: any) {
-    console.log({statusChanges: status})
+    // console.log({statusChanges: status})
   }
 
+  triggerSubmitFromOutsideForm() {
+    this.crisprForm.triggerSubmit();
+  }
 }

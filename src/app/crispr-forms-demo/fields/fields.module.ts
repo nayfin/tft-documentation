@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { FieldsRoutingModule } from './fields-routing.module';
 import { CrisprFormsModule } from '@tft/crispr-forms';
-import { UiImportsModule } from '@tft/ui-imports';
 import { SelectComponent } from './select/select.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { InputComponent } from './input/input.component';
@@ -18,6 +17,8 @@ import { AutocompleteChiplistComponent } from './autocomplete-chiplist/autocompl
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { UnitConversionComponent } from './unit-conversion/unit-conversion.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -35,14 +36,15 @@ import { UnitConversionComponent } from './unit-conversion/unit-conversion.compo
     AutocompleteChiplistComponent,
     FileUploadComponent,
     UnitConversionComponent,
-    CustomDatepickerFooterComponent
+    CustomDatepickerFooterComponent,
+    ImageUploadComponent
   ],
   imports: [
     CommonModule,
     FieldsRoutingModule,
     CrisprFormsModule,
-    UiImportsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
   ]
 })
 export class FieldsModule { }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormConfig, ControlType } from '@tft/crispr-forms';
-import * as moment from 'moment';
 import { map } from 'rxjs/operators';
+import { getDayOfYear } from 'date-fns';
 
 @Component({
   selector: 'doc-datepicker',
@@ -55,7 +55,7 @@ export class DatepickerComponent {
         label: 'Datepicker Field',
         controlName: 'cellClassDatepicker',
         cellClassFunction: (date, view) => {
-          const dayOfMonth = +date.format('D')
+          const dayOfMonth = date.getDate(); // +date.getDay();
           if(view === 'month') {
             console.log({date})
             return dayOfMonth === 15 ? 'highlight-day' : ''
@@ -66,6 +66,7 @@ export class DatepickerComponent {
       {
         controlType: ControlType.INPUT,
         controlName: 'classChanger',
+        label: 'Change classes',
         inputType: 'number',
         heading: {
           label: 'Change the day highlighted in datepicker below',
@@ -89,16 +90,14 @@ export class DatepickerComponent {
             map((relativeDay: string) => {
               return (date, view) => {
                 if(view === 'month') {
-                    return date.dayOfYear() === (moment().dayOfYear() + + relativeDay) ? 'highlight-day' : ''
-                  }
-                  return '';
+                  return getDayOfYear(date) === (getDayOfYear(new Date()) + + relativeDay) ? 'highlight-day' : ''
                 }
+                return '';
+              }
             })
           )
 
         }
-
-        //
       }
     ]
   };

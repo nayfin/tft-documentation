@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FeaturesRoutingModule } from './features-routing.module';
-import { DisabledFieldComponent, ComputedFieldComponent } from '.';
-import { UiImportsModule } from '@tft/ui-imports';
+import { ComputedFieldComponent } from './computed-field/computed-field.component';
+import { DisabledFieldComponent } from './disabled-field/disabled-field.component';
 import { CrisprFormsModule } from '@tft/crispr-forms';
 import { AppearanceComponent } from './appearance/appearance.component';
 import { ColorComponent } from './color/color.component';
@@ -14,6 +14,9 @@ import { CustomInputComponent } from './custom-component/custom-input/custom-inp
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomSelectComponent } from './custom-component/custom-select/custom-select.component';
 import { ValidatorsComponent } from './validators/validators.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -30,10 +33,12 @@ import { ValidatorsComponent } from './validators/validators.component';
     ValidatorsComponent,
   ],
   imports: [
-    UiImportsModule,
     CrisprFormsModule,
     CommonModule,
     FeaturesRoutingModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
     // this is only needed because we are creating custom components, CRISPR doesn't need this
     ReactiveFormsModule
   ]

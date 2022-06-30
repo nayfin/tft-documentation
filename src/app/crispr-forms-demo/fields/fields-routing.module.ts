@@ -12,20 +12,20 @@ import {
   DividerComponent,
   HeadingComponent,
   ButtonComponent,
-  FileUploadComponent
+  FileUploadComponent,
+  ImageUploadComponent,
+  UnitConversionComponent
 } from '.';
-import { UnitConversionComponent } from './unit-conversion/unit-conversion.component';
-
-
 
 const routes: Routes = [
-  { path: '', redirectTo: 'select'},
+  { path: '', redirectTo: 'select', pathMatch: 'full'},
   { path: 'select', component: SelectComponent},
   { path: 'autocomplete', component: AutocompleteComponent},
   { path: 'autocomplete-chiplist', component: AutocompleteChiplistComponent},
   { path: 'input', component: InputComponent},
   { path: 'textarea', component: TextareaComponent},
   { path: 'file-upload', component: FileUploadComponent},
+  { path: 'image-upload', component: ImageUploadComponent},
   { path: 'checkbox', component: CheckboxComponent},
   { path: 'datepicker', component: DatepickerComponent},
   { path: 'slider', component: SliderComponent},
