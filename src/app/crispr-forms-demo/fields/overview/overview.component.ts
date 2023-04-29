@@ -1,8 +1,34 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormConfig, ControlType, SelectOption, CrisprFormComponent } from '@tft/crispr-forms';
 import { Validators, FormGroup } from '@angular/forms';
 import { BehaviorSubject, of } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+
+
+@Component({
+  selector: 'doc-display-item',
+  template: `<div>
+    Step {{index + 1}}
+    <div *ngIf="value?.autocompleteChiplistObservable?.length">
+    autocompleteChiplistObservable: {{value.autocompleteChiplistObservable | json}}
+    </div>
+    <div *ngIf="value?.subField">
+    subField: {{value.subField}}
+    </div>
+    <div *ngIf="value?.secondSubField">
+    secondSubField: {{value.secondSubField}}
+    </div>
+  </div> `,
+  styleUrls: ['./overview.component.scss'],
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class DisplayItemComponent {
+  value;
+  index: number;
+}
 
 @Component({
   selector: 'doc-overview',
@@ -92,6 +118,7 @@ export class OverviewComponent implements OnInit{
         heading: {
           label: 'Group List'
         },
+        displayItemComponent: DisplayItemComponent,
         controlName: 'groupList',
         minListLength: 0,
         itemLabelBuilder: ( index: number ) => `Step ${index + 1}`,
