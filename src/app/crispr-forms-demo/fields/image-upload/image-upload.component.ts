@@ -4,9 +4,10 @@ import { allowedFileExtValidator, ControlType, FormConfig, maxFileSizeValidator 
 import { delay, of, startWith } from 'rxjs';
 
 @Component({
-  selector: 'tft-image-upload',
-  templateUrl: './image-upload.component.html',
-  styleUrls: ['./image-upload.component.scss']
+    selector: 'tft-image-upload',
+    templateUrl: './image-upload.component.html',
+    styleUrls: ['./image-upload.component.scss'],
+    standalone: false
 })
 export class ImageUploadComponent {
   value = of({
@@ -50,7 +51,7 @@ export class ImageUploadComponent {
         heading: {
           label: 'Upload Files'
         },
-        appearance: 'standard',
+        appearance: 'outline',
         color: 'accent',
         compressImage: true,
         acceptedTypes: 'image/*',

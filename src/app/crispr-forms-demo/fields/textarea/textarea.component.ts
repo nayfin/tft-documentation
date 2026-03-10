@@ -1,23 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlType, FormConfig } from '@tft/crispr-forms';
+import { Component } from '@angular/core';
+import { FormConfig } from '@tft/crispr-forms';
+import { textareaFormConfig } from './textarea.config';
 
 @Component({
-  selector: 'doc-textarea',
-  templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss']
+    selector: 'doc-textarea',
+    templateUrl: './textarea.component.html',
+    styleUrls: ['./textarea.component.scss'],
+    standalone: false
 })
 export class TextareaComponent {
 
-  formConfig: FormConfig = {
-    autoComplete: 'off',
-    fields: [
-      {
-        controlType: ControlType.TEXTAREA,
-        label: 'Text Input Field',
-        controlName: 'textInput',
-        rows: 5
-      },
-    ]
-  }
+  formConfig: FormConfig = textareaFormConfig;
 
 }

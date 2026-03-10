@@ -1,43 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormConfig, ControlType } from '@tft/crispr-forms';
+import { Component } from '@angular/core';
+import { FormConfig } from '@tft/crispr-forms';
+import { sliderFormConfig } from './slider.config';
 
 @Component({
-  selector: 'doc-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss']
+    selector: 'doc-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.scss'],
+    standalone: false
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent {
 
-  formConfig: FormConfig = {
-    fields: [
-      {
-        controlType: ControlType.SLIDER,
-        info: {
-          content: 'You can use a tooltip on a slider'
-        },
-        label: 'Slider Field',
-        controlName: 'slider',
-        displayLimits: true, // default
-        max: 80,
-        min: 20,
-        step: 1.5,
-        thumbLabel: true // default: false
-      },
-      {
-        controlType: ControlType.SLIDER,
-        info: {
-          content: 'You can use a tooltip on a slider'
-        },
-        vertical: true,
-        label: 'Slider Field',
-        controlName: 'slider',
-      }
-    ]
-  }
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  formConfig: FormConfig = sliderFormConfig;
 
 }

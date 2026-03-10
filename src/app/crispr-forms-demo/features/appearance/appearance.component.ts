@@ -5,9 +5,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'doc-appearance',
-  templateUrl: './appearance.component.html',
-  styleUrls: ['./appearance.component.scss']
+    selector: 'doc-appearance',
+    templateUrl: './appearance.component.html',
+    styleUrls: ['./appearance.component.scss'],
+    standalone: false
 })
 export class AppearanceComponent implements OnInit {
   formConfig: FormConfig = {
@@ -18,10 +19,10 @@ export class AppearanceComponent implements OnInit {
         controlName: 'firstName',
         label: 'First Name',
         heading: {
-          label: `'standard'`,
+          label: `'fill'`,
           typographyClass: 'mat-h2'
         },
-        appearance: 'standard',
+        appearance: 'fill',
       },
       {
         controlType: ControlType.INPUT,
@@ -49,10 +50,10 @@ export class AppearanceComponent implements OnInit {
         controlName: 'formattedName',
         label: 'Formatted Name',
         heading: {
-          label: `'legacy'`,
+          label: `'fill'`,
           typographyClass: 'mat-h2'
         },
-        appearance: 'legacy',
+        appearance: 'fill',
       },
       {
         controlType: ControlType.AUTOCOMPLETE_CHIPLIST,

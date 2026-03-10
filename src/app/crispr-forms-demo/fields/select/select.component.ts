@@ -4,60 +4,21 @@ import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { EndpointsService } from '../../endpoints.service';
 import { FormGroup } from '@angular/forms';
+import { selectFormConfig } from './select.config';
 
 @Component({
-  selector: 'doc-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+    selector: 'doc-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    standalone: false
 })
 export class SelectComponent implements OnInit {
 
   multiSelectInitialValue = {
-    initialValueMultiSelectField: [
-      'a', 'b', 'c'
-    ]
-  }
-  selectConfig: FormConfig = {
-    fields: [
-      {
-        controlType: ControlType.SELECT,
-        label: 'This select field uses a simple array of options',
-        controlName: 'selectField',
-        options: [
-          {label: 'option a', value: 'a'},
-          {label: 'option b', value: 'b'},
-          {label: 'option c', value: 'c'},
-        ]
-      },
-      {
-        controlType: ControlType.SELECT,
-        label: 'This select field uses a simple array of options',
-        controlName: 'multiSelectField',
-        multiple: true,
-        options: [
-          {label: 'option a', value: 'a'},
-          {label: 'option b', value: 'b'},
-          {label: 'option c', value: 'c'},
-        ]
-      },
-      {
-        controlType: ControlType.SELECT,
-        label: 'This select field uses a simple array of options',
-        controlName: 'initialValueMultiSelectField',
-        multiple: true,
-        enableToggleAll: true,
-        options: [
-          {label: 'option a', value: 'a'},
-          {label: 'option b', value: 'b'},
-          {label: 'option c', value: 'c'},
-        ]
-      },
-      {
-        controlType: ControlType.BUTTON,
-        label: 'Submit'
-      }
-    ]
-  }
+    toggleAllField: ['a', 'b', 'c'],
+  };
+
+  selectConfig: FormConfig = selectFormConfig;
 
   promiseSelectConfig: FormConfig = {
     fields: [
@@ -100,7 +61,7 @@ export class SelectComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'Results',
         placeholder: 'Searched plants available as options here',
-        controlName: 'multiSelectField',
+        controlName: 'observableMultiSelect',
         multiple:true,
         info: {
           content: 'The result of the plant search above are displayed here'

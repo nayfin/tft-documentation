@@ -7,23 +7,28 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'doc-display-item',
-  template: `<div>
-    Step {{index + 1}}
-    <div *ngIf="value?.autocompleteChiplistObservable?.length">
-    autocompleteChiplistObservable: {{value.autocompleteChiplistObservable | json}}
-    </div>
-    <div *ngIf="value?.subField">
-    subField: {{value.subField}}
-    </div>
-    <div *ngIf="value?.secondSubField">
-    secondSubField: {{value.secondSubField}}
-    </div>
-  </div> `,
-  styleUrls: ['./overview.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'doc-display-item',
+    template: `<div>
+      Step {{index + 1}}
+      @if (value?.autocompleteChiplistObservable?.length) {
+        <div>
+          autocompleteChiplistObservable: {{value.autocompleteChiplistObservable | json}}
+        </div>
+      }
+      @if (value?.subField) {
+        <div>
+          subField: {{value.subField}}
+        </div>
+      }
+      @if (value?.secondSubField) {
+        <div>
+          secondSubField: {{value.secondSubField}}
+        </div>
+      }
+    </div>`,
+    styleUrls: ['./overview.component.scss'],
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayItemComponent {
   value;
@@ -31,9 +36,10 @@ export class DisplayItemComponent {
 }
 
 @Component({
-  selector: 'doc-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+    selector: 'doc-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
+    standalone: false
 })
 export class OverviewComponent implements OnInit{
 
@@ -56,7 +62,6 @@ export class OverviewComponent implements OnInit{
     disabler: true,
     disabledText: 'Some initial value on disabled field',
     selectField: 'b',
-    // selectFieldObservable: 'b',
     selectFieldPromise: 'blue',
     autocompleteObservable: 'b',
     autocompleteChiplistObservable: ['a', 'b', 'o' ],
@@ -86,6 +91,15 @@ export class OverviewComponent implements OnInit{
     },
     validators: [Validators.required],
     fields: [
+      {
+        controlType: ControlType.MAP,
+        controlName: 'map',
+        label: 'Google Map',
+        center: {
+          lat: 38.8809704,
+          lng: -90.73427339999999
+        }
+      },
       {
         controlType: ControlType.INPUT,
         inputType: 'text',
@@ -141,7 +155,7 @@ export class OverviewComponent implements OnInit{
               typeDebounceTime: 0,
               validators: [Validators.required],
               options: (_group, searchTerm) => {
-                console.log({searchTerm, _group})
+                // console.log({searchTerm, _group})
                 return of([
                   {label: 'good', value: 'good'},
                   {label: 'evil', value: 'evil'},
@@ -163,7 +177,7 @@ export class OverviewComponent implements OnInit{
             {
               controlType: ControlType.INPUT,
               controlName: 'secondSubField',
-              appearance: 'legacy',
+              appearance: 'fill',
               label: 'Last Name',
               placeholder: 'King',
               validators: [Validators.required],
@@ -341,7 +355,7 @@ export class OverviewComponent implements OnInit{
         typeDebounceTime: 0,
         validators: [Validators.required],
         options: (_group, searchTerm) => {
-          console.log({searchTerm, _group})
+          // console.log({searchTerm, _group})
           return of([
             {label: 'good', value: 'good'},
             {label: 'evil', value: 'evil'},
@@ -386,8 +400,7 @@ export class OverviewComponent implements OnInit{
         info: {
           content: 'I am a tooltip on a slider'
         },
-        vertical: false,
-        thumbLabel: true,
+        discrete: true,
         min: 2,
         max: 88
       },
@@ -399,8 +412,7 @@ export class OverviewComponent implements OnInit{
         color: 'primary',
         icon: 'info',
         classes: []
-      },
-
+      }
     ]
   }
 
@@ -413,6 +425,7 @@ export class OverviewComponent implements OnInit{
 
   handleSubmit(form: FormGroup) {
     const rawValue = form.getRawValue();
+    console.log({rawValue})
     this.valueSubject.next(rawValue);
   }
 

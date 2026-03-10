@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormConfig, ControlType } from '@tft/crispr-forms';
-import { someControlIsValid } from '@tft/form-validation-handler';
+import { someControlIsValid } from '@tft/form-validation-handler/utils';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'tft-validators',
-  templateUrl: './validators.component.html',
-  styleUrls: ['./validators.component.css']
+    selector: 'tft-validators',
+    templateUrl: './validators.component.html',
+    styleUrls: ['./validators.component.css'],
+    standalone: false
 })
 export class ValidatorsComponent {
   formConfig: FormConfig = {
